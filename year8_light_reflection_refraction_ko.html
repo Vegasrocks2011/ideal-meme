@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 8 Light — Reflection, Refraction, White Light</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f5f5f3;color:#1a1a1a;font-size:15px;line-height:1.6}
+.app{max-width:900px;margin:0 auto;padding:1.5rem 1rem 3rem}
+h1{font-size:22px;font-weight:600;margin-bottom:4px}
+h3{font-size:14px;font-weight:600;margin-bottom:6px}
+.subtitle{font-size:13px;color:#666;margin-bottom:20px}
+
+.nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:22px}
+.nb{padding:7px 14px;font-size:13px;border:1px solid #ccc;border-radius:8px;background:#fff;color:#555;cursor:pointer;font-family:inherit}
+.nb:hover{background:#f0f0f0}
+.nb.on{background:#1a56db;color:#fff;border-color:#1a56db}
+
+.pg{display:none}.pg.on{display:block}
+
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1rem 1.2rem;margin-bottom:12px}
+.c-blue{border-left:4px solid #3b82f6}
+.c-teal{border-left:4px solid #14b8a6}
+.c-purple{border-left:4px solid #8b5cf6}
+.c-amber{border-left:4px solid #f59e0b}
+.c-red{border-left:4px solid #ef4444}
+.c-green{border-left:4px solid #22c55e}
+.c-coral{border-left:4px solid #f97316}
+.c-indigo{border-left:4px solid #6366f1}
+.c-pink{border-left:4px solid #ec4899}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+.bdg{display:inline-block;padding:2px 10px;border-radius:6px;font-size:12px;font-weight:600;margin-bottom:7px}
+.b-blue{background:#dbeafe;color:#1e40af}
+.b-teal{background:#ccfbf1;color:#0f766e}
+.b-purple{background:#ede9fe;color:#6d28d9}
+.b-amber{background:#fef3c7;color:#92400e}
+.b-red{background:#fee2e2;color:#991b1b}
+.b-green{background:#dcfce7;color:#166534}
+.b-coral{background:#ffedd5;color:#9a3412}
+.b-indigo{background:#e0e7ff;color:#3730a3}
+.b-pink{background:#fce7f3;color:#9d174d}
+
+.fbox{background:#f3f4f6;border-radius:8px;padding:10px 14px;font-size:16px;font-weight:700;text-align:center;margin:8px 0}
+
+.row{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid #f0f0f0}
+.row:last-child{border-bottom:none}
+.tm{font-weight:600;font-size:13px;min-width:155px;flex-shrink:0}
+.df{font-size:13px;color:#444;line-height:1.5}
+
+.st{font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px;margin-top:18px}
+.divider{border:none;border-top:3px solid #e0e0e0;margin:26px 0}
+
+.topic-banner{border-radius:10px;padding:9px 16px;font-size:14px;font-weight:700;color:#fff;margin:22px 0 14px;display:flex;align-items:center;gap:8px}
+.tb-blue{background:#1e40af}.tb-teal{background:#0f766e}.tb-purple{background:#6d28d9}
+.tb-amber{background:#92400e}.tb-coral{background:#9a3412}.tb-indigo{background:#3730a3}
+.tb-green{background:#166534}.tb-pink{background:#9d174d}
+
+.warn{background:#fee2e2;border-left:4px solid #ef4444;border-radius:0 8px 8px 0;padding:8px 13px;font-size:13px;color:#991b1b;margin-top:9px;line-height:1.5}
+.info{background:#dbeafe;border-left:4px solid #3b82f6;border-radius:0 8px 8px 0;padding:8px 13px;font-size:13px;color:#1e40af;margin-top:9px;line-height:1.5}
+.success{background:#dcfce7;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:8px 13px;font-size:13px;color:#166534;margin-top:9px;line-height:1.5}
+.amber-box{background:#fef3c7;border-left:4px solid #f59e0b;border-radius:0 8px 8px 0;padding:8px 13px;font-size:13px;color:#92400e;margin-top:9px;line-height:1.5}
+
+.diagram-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:12px 0}
+.diagram-box{background:#f9f9f9;border:1px solid #e0e0e0;border-radius:10px;padding:12px;text-align:center}
+.diagram-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:8px}
+.diagram-note{font-size:12px;color:#555;margin-top:8px;line-height:1.45}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 10px;font-weight:600;border-bottom:2px solid #e0e0e0;background:#f9f9f9}
+td{padding:7px 10px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+tr:last-child td{border-bottom:none}
+
+/* SELF ASSESSMENT */
+.si{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1rem 1.2rem;margin-bottom:10px}
+.ss{font-size:14px;margin-bottom:11px;line-height:1.55}
+.sbs{display:flex;gap:8px;flex-wrap:wrap}
+.sb{padding:7px 18px;font-size:13px;border:1px solid #ccc;border-radius:8px;background:#f9f9f9;color:#555;cursor:pointer;font-family:inherit;font-weight:500}
+.sb:hover{background:#f0f0f0}
+.sg{background:#16a34a;color:#fff;border-color:#16a34a}
+.sam{background:#d97706;color:#fff;border-color:#d97706}
+.sr{background:#dc2626;color:#fff;border-color:#dc2626}
+
+/* DIAGNOSTIC */
+.qb{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1rem 1.2rem;margin-bottom:14px}
+.qt{font-size:14px;margin-bottom:12px;line-height:1.55}
+.ob{display:block;width:100%;text-align:left;padding:8px 14px;margin-bottom:6px;font-size:13px;border:1px solid #ddd;border-radius:8px;background:#f9f9f9;color:#1a1a1a;cursor:pointer;font-family:inherit}
+.ob:hover:not(:disabled){background:#f0f0f0}
+.ob:disabled{cursor:default}
+.oc{background:#dcfce7;color:#166534;border-color:#22c55e;font-weight:600}
+.ow{background:#fee2e2;color:#991b1b;border-color:#ef4444}
+.orc{background:#dcfce7;color:#166534;border-color:#22c55e}
+.fb{font-size:13px;margin-top:8px;padding:8px 12px;border-radius:8px;line-height:1.5;display:none}
+.fb.on{display:block}.fbc{background:#dcfce7;color:#166634}.fbw{background:#fee2e2;color:#991b1b}
+
+/* FOLLOW-UP */
+.ckb{padding:8px 20px;font-size:13px;border:1px solid #ccc;border-radius:8px;background:#f9f9f9;color:#1a1a1a;cursor:pointer;font-family:inherit;font-weight:500}
+.ckb:hover{background:#f0f0f0}
+
+.ab{padding:10px 26px;font-size:14px;border:none;border-radius:8px;background:#1a56db;color:#fff;cursor:pointer;font-family:inherit;font-weight:600}
+.ab:hover{background:#1e40af}
+
+/* SUMMARY */
+.tr2{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;gap:6px}
+.tr2:last-child{border-bottom:none}
+.pill{padding:3px 11px;border-radius:20px;font-size:12px;font-weight:600}
+.pig{background:#dcfce7;color:#166534}.pia{background:#fef3c7;color:#92400e}.pir{background:#fee2e2;color:#991b1b}
+.stat-card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1rem;text-align:center}
+.stat-label{font-size:12px;color:#888;margin-bottom:6px}
+.stat-val{font-size:24px;font-weight:700}
+
+/* rainbow strip */
+.rainbow-strip{height:14px;border-radius:7px;background:linear-gradient(to right,#dc2626,#f97316,#eab308,#22c55e,#3b82f6,#6366f1,#8b5cf6);margin:10px 0}
+
+@media(max-width:600px){.g2,.g3,.diagram-grid{grid-template-columns:1fr}}
+@media print{.nav,.ab{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="nav">
+  <button class="nb on" onclick="sp('ko')">Knowledge Organiser</button>
+  <button class="nb" onclick="sp('sa')">Self-Assessment</button>
+  <button class="nb" onclick="sp('dq')">Diagnostic Questions</button>
+  <button class="nb" onclick="sp('fu')">Follow-Up Questions</button>
+  <button class="nb" onclick="bs();sp('sm')">My Summary</button>
+</div>
+
+<!-- ══════════════════════════ KNOWLEDGE ORGANISER ══════════════ -->
+<div class="pg on" id="pg-ko">
+<h1>Year 8 Physics — Light</h1>
+<p class="subtitle">Reflection · Law of Reflection · Refraction · Light Diagrams · White Light &amp; the Spectrum</p>
+
+<!-- 1. LIGHT BASICS -->
+<div class="topic-banner tb-amber">1 · What is Light?</div>
+<div class="card c-amber">
+  <div class="g2">
+    <div>
+      <div class="row"><span class="tm">Light</span><span class="df">A form of energy that travels as a transverse electromagnetic wave. Does not need a medium — can travel through a vacuum.</span></div>
+      <div class="row"><span class="tm">Speed of light</span><span class="df">300,000,000 m/s (3 × 10⁸ m/s) in a vacuum. Slows down when it enters a denser medium (e.g. glass or water).</span></div>
+      <div class="row"><span class="tm">Ray of light</span><span class="df">A thin beam of light shown as a straight line with an arrow showing the direction of travel.</span></div>
+      <div class="row"><span class="tm">Luminous objects</span><span class="df">Objects that produce their own light (e.g. Sun, flame, light bulb, stars).</span></div>
+      <div class="row"><span class="tm">Non-luminous objects</span><span class="df">Objects that are seen because they reflect light from a luminous source (e.g. Moon, book, your hand).</span></div>
+    </div>
+    <div>
+      <div class="row"><span class="tm">Opaque</span><span class="df">Does not transmit light — light cannot pass through. Example: wood, metal, your hand. Casts a shadow.</span></div>
+      <div class="row"><span class="tm">Transparent</span><span class="df">Light passes through clearly — you can see through it. Example: glass, clear water, perspex.</span></div>
+      <div class="row"><span class="tm">Translucent</span><span class="df">Some light passes through but is scattered — you cannot see clearly through it. Example: frosted glass, tissue paper.</span></div>
+      <div class="row"><span class="tm">Shadow</span><span class="df">Formed when an opaque object blocks light. Same shape as the object. Umbra = full shadow; penumbra = partial shadow.</span></div>
+    </div>
+  </div>
+  <div class="info" style="margin-top:10px">Light travels in <strong>straight lines</strong>. This is why shadows have sharp edges (with a point source of light) and why you cannot see around corners.</div>
+</div>
+
+<hr class="divider">
+<!-- 2. REFLECTION -->
+<div class="topic-banner tb-blue">2 · Reflection</div>
+
+<div class="st">The Law of Reflection</div>
+<div class="card c-blue">
+  <span class="bdg b-blue">The Law of Reflection</span>
+  <div class="g2" style="margin-top:8px">
+    <div>
+      <div class="fbox">Angle of incidence = Angle of reflection</div>
+      <div class="row" style="margin-top:8px"><span class="tm">Normal</span><span class="df">A line drawn perpendicular (at 90°) to the mirror surface at the point where the ray hits. All angles are measured FROM the normal, not the surface.</span></div>
+      <div class="row"><span class="tm">Angle of incidence (i)</span><span class="df">Angle between the incoming (incident) ray and the normal.</span></div>
+      <div class="row"><span class="tm">Angle of reflection (r)</span><span class="df">Angle between the reflected ray and the normal.</span></div>
+      <div class="row"><span class="tm">Incident ray</span><span class="df">The ray travelling towards the mirror surface.</span></div>
+      <div class="row"><span class="tm">Reflected ray</span><span class="df">The ray bouncing back from the mirror surface.</span></div>
+    </div>
+    <div>
+      <div class="diagram-box" style="margin-top:0">
+        <div class="diagram-title">Reflection diagram</div>
+        <svg viewBox="0 0 260 200" width="100%" style="max-width:260px;display:block;margin:0 auto">
+          <defs>
+            <marker id="arr-i" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1e40af"/></marker>
+            <marker id="arr-r" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#dc2626"/></marker>
+            <marker id="arr-n" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#888"/></marker>
+          </defs>
+          <!-- mirror surface -->
+          <line x1="20" y1="170" x2="240" y2="170" stroke="#444" stroke-width="3"/>
+          <!-- hatching below mirror -->
+          <line x1="30" y1="170" x2="20" y2="182" stroke="#888" stroke-width="1"/>
+          <line x1="55" y1="170" x2="45" y2="182" stroke="#888" stroke-width="1"/>
+          <line x1="80" y1="170" x2="70" y2="182" stroke="#888" stroke-width="1"/>
+          <line x1="105" y1="170" x2="95" y2="182" stroke="#888" stroke-width="1"/>
+          <line x1="130" y1="170" x2="120" y2="182" stroke="#888" stroke-width="1"/>
+          <line x1="155" y1="170" x2="145" y2="182" stroke="#888" stroke-width="1"/>
+          <line x1="180" y1="170" x2="170" y2="182" stroke="#888" stroke-width="1"/>
+          <line x1="205" y1="170" x2="195" y2="182" stroke="#888" stroke-width="1"/>
+          <line x1="230" y1="170" x2="220" y2="182" stroke="#888" stroke-width="1"/>
+          <!-- normal (dashed) -->
+          <line x1="130" y1="10" x2="130" y2="170" stroke="#888" stroke-width="1.5" stroke-dasharray="5,3"/>
+          <!-- incident ray -->
+          <line x1="30" y1="30" x2="130" y2="170" stroke="#1e40af" stroke-width="2.5" marker-end="url(#arr-i)"/>
+          <!-- reflected ray -->
+          <line x1="130" y1="170" x2="230" y2="30" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arr-r)"/>
+          <!-- angle arcs -->
+          <path d="M 110,152 A 24,24 0 0,1 130,132" stroke="#1e40af" stroke-width="1.5" fill="none"/>
+          <path d="M 130,132 A 24,24 0 0,1 150,152" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+          <!-- labels -->
+          <text x="30" y="25" font-size="12" fill="#1e40af" font-family="system-ui" font-weight="600">Incident ray</text>
+          <text x="160" y="25" font-size="12" fill="#dc2626" font-family="system-ui" font-weight="600">Reflected ray</text>
+          <text x="135" y="20" font-size="11" fill="#666" font-family="system-ui">Normal</text>
+          <text x="95" y="148" font-size="11" fill="#1e40af" font-family="system-ui" font-weight="700">i</text>
+          <text x="155" y="148" font-size="11" fill="#dc2626" font-family="system-ui" font-weight="700">r</text>
+          <text x="70" y="188" font-size="11" fill="#444" font-family="system-ui">Mirror surface</text>
+        </svg>
+        <p class="diagram-note">i = angle of incidence · r = angle of reflection<br>i always equals r</p>
+      </div>
+    </div>
+  </div>
+  <div class="warn" style="margin-top:10px">⚠ Angles are ALWAYS measured from the <strong>normal</strong>, NOT from the mirror surface. A very common mistake is to measure from the mirror itself — this gives the wrong angle.</div>
+</div>
+
+<div class="st">Types of reflection</div>
+<div class="card c-blue">
+  <div class="g2">
+    <div>
+      <h3 style="margin-bottom:8px">Regular (specular) reflection</h3>
+      <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:8px">Occurs from a smooth, flat surface (e.g. plane mirror, still water, polished metal). All rays are reflected at the same angle — you see a clear image.</p>
+      <div class="diagram-box" style="padding:10px">
+        <svg viewBox="0 0 200 100" width="100%" style="max-width:200px;display:block;margin:0 auto">
+          <line x1="10" y1="85" x2="190" y2="85" stroke="#444" stroke-width="2"/>
+          <line x1="30" y1="20" x2="65" y2="83" stroke="#1e40af" stroke-width="2"/>
+          <line x1="65" y1="83" x2="100" y2="20" stroke="#dc2626" stroke-width="2"/>
+          <line x1="70" y1="20" x2="105" y2="83" stroke="#1e40af" stroke-width="2"/>
+          <line x1="105" y1="83" x2="140" y2="20" stroke="#dc2626" stroke-width="2"/>
+          <line x1="110" y1="20" x2="145" y2="83" stroke="#1e40af" stroke-width="2"/>
+          <line x1="145" y1="83" x2="180" y2="20" stroke="#dc2626" stroke-width="2"/>
+          <text x="100" y="98" font-size="10" fill="#444" text-anchor="middle" font-family="system-ui">Regular — clear image</text>
+        </svg>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px">Diffuse reflection</h3>
+      <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:8px">Occurs from a rough, uneven surface (e.g. paper, wall, grass). Rays are reflected in many different directions. No clear image — you see a dull, matte surface. The law of reflection still applies at each point, but the surface is uneven.</p>
+      <div class="diagram-box" style="padding:10px">
+        <svg viewBox="0 0 200 100" width="100%" style="max-width:200px;display:block;margin:0 auto">
+          <path d="M10,85 Q30,80 50,88 Q70,82 90,86 Q110,80 130,88 Q150,83 170,86 Q185,84 190,85" stroke="#444" stroke-width="2" fill="none"/>
+          <line x1="65" y1="20" x2="78" y2="83" stroke="#1e40af" stroke-width="2"/>
+          <line x1="78" y1="83" x2="55" y2="30" stroke="#dc2626" stroke-width="2"/>
+          <line x1="78" y1="83" x2="90" y2="25" stroke="#dc2626" stroke-width="2"/>
+          <line x1="78" y1="83" x2="110" y2="35" stroke="#dc2626" stroke-width="2"/>
+          <line x1="78" y1="83" x2="40" y2="40" stroke="#dc2626" stroke-width="2"/>
+          <text x="100" y="98" font-size="10" fill="#444" text-anchor="middle" font-family="system-ui">Diffuse — scattered light</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="st">Images in plane (flat) mirrors</div>
+<div class="card c-indigo">
+  <span class="bdg b-indigo">Properties of a mirror image</span>
+  <div class="g2" style="margin-top:8px">
+    <div>
+      <ul style="font-size:13px;color:#444;margin-left:16px;line-height:1.9">
+        <li><strong>Virtual</strong> — the image appears to be behind the mirror but no light actually travels there</li>
+        <li><strong>Same size</strong> as the object</li>
+        <li><strong>Same distance</strong> behind the mirror as the object is in front</li>
+        <li><strong>Upright</strong> — the right way up (not inverted vertically)</li>
+        <li><strong>Laterally inverted</strong> — left and right are swapped (your right hand appears as the left hand in the mirror)</li>
+      </ul>
+    </div>
+    <div>
+      <div class="diagram-box">
+        <div class="diagram-title">Locating an image in a mirror</div>
+        <svg viewBox="0 0 220 160" width="100%" style="max-width:220px;display:block;margin:0 auto">
+          <defs>
+            <marker id="ao" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1e40af"/></marker>
+          </defs>
+          <!-- mirror -->
+          <line x1="110" y1="10" x2="110" y2="150" stroke="#444" stroke-width="3"/>
+          <line x1="110" y1="20" x2="118" y2="30" stroke="#888" stroke-width="1"/>
+          <line x1="110" y1="40" x2="118" y2="50" stroke="#888" stroke-width="1"/>
+          <line x1="110" y1="60" x2="118" y2="70" stroke="#888" stroke-width="1"/>
+          <line x1="110" y1="80" x2="118" y2="90" stroke="#888" stroke-width="1"/>
+          <line x1="110" y1="100" x2="118" y2="110" stroke="#888" stroke-width="1"/>
+          <line x1="110" y1="120" x2="118" y2="130" stroke="#888" stroke-width="1"/>
+          <!-- object -->
+          <rect x="30" y="60" width="14" height="40" fill="#1e40af" rx="3"/>
+          <text x="37" y="55" font-size="10" fill="#1e40af" text-anchor="middle" font-family="system-ui">Object</text>
+          <!-- image (virtual, dashed) -->
+          <rect x="176" y="60" width="14" height="40" fill="none" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4,2" rx="3"/>
+          <text x="183" y="55" font-size="10" fill="#8b5cf6" text-anchor="middle" font-family="system-ui">Image</text>
+          <!-- distance arrows -->
+          <line x1="44" y1="145" x2="110" y2="145" stroke="#666" stroke-width="1.5"/>
+          <line x1="110" y1="145" x2="183" y2="145" stroke="#666" stroke-width="1.5" stroke-dasharray="4,2"/>
+          <text x="77" y="158" font-size="10" fill="#444" text-anchor="middle" font-family="system-ui">d</text>
+          <text x="146" y="158" font-size="10" fill="#444" text-anchor="middle" font-family="system-ui">d</text>
+          <!-- reflected rays -->
+          <line x1="37" y1="65" x2="110" y2="80" stroke="#1e40af" stroke-width="1.5" marker-end="url(#ao)"/>
+          <line x1="37" y1="95" x2="110" y2="80" stroke="#1e40af" stroke-width="1.5" marker-end="url(#ao)"/>
+        </svg>
+        <p class="diagram-note">Object distance = Image distance from mirror<br>Image is virtual — behind the mirror</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+<!-- 3. REFRACTION -->
+<div class="topic-banner tb-teal">3 · Refraction</div>
+
+<div class="card c-teal">
+  <span class="bdg b-teal">What is refraction?</span>
+  <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:10px"><strong>Refraction</strong> is the change in direction (bending) of a light ray as it crosses the boundary between two different materials (media), caused by the change in speed of light.</p>
+  <div class="g2">
+    <div>
+      <div class="row"><span class="tm">Why does it happen?</span><span class="df">Light travels at different speeds in different materials. In air it travels faster than in glass or water. When it slows down at an angle, it bends towards the normal.</span></div>
+      <div class="row"><span class="tm">Normal</span><span class="df">The same perpendicular line used in reflection — all angles measured from this line.</span></div>
+      <div class="row"><span class="tm">Angle of incidence</span><span class="df">Angle between incoming ray and the normal (in air).</span></div>
+      <div class="row"><span class="tm">Angle of refraction</span><span class="df">Angle between refracted ray and the normal (inside the denser material).</span></div>
+    </div>
+    <div>
+      <div class="row"><span class="tm">Air → Glass (denser)</span><span class="df">Light SLOWS DOWN → bends TOWARDS the normal. Angle of refraction < angle of incidence.</span></div>
+      <div class="row"><span class="tm">Glass → Air (less dense)</span><span class="df">Light SPEEDS UP → bends AWAY from the normal. Angle of refraction > angle of incidence.</span></div>
+      <div class="row"><span class="tm">Along the normal (0°)</span><span class="df">If light hits the boundary at exactly 90° (along the normal), it passes straight through with NO bending.</span></div>
+      <div class="row"><span class="tm">Emergent ray</span><span class="df">The ray leaving the glass block — it is parallel to the original incident ray but displaced sideways.</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="st">Refraction diagrams — all cases</div>
+<div class="diagram-grid">
+  <div class="diagram-box">
+    <div class="diagram-title">Air → Glass (bends toward normal)</div>
+    <svg viewBox="0 0 220 200" width="100%" style="max-width:220px;display:block;margin:0 auto">
+      <defs>
+        <marker id="a1" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1e40af"/></marker>
+        <marker id="a2" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#dc2626"/></marker>
+      </defs>
+      <!-- glass block -->
+      <rect x="10" y="90" width="200" height="100" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2" rx="4"/>
+      <text x="110" y="145" font-size="11" fill="#075985" text-anchor="middle" font-family="system-ui" font-weight="600">GLASS</text>
+      <text x="110" y="72" font-size="11" fill="#444" text-anchor="middle" font-family="system-ui">AIR</text>
+      <!-- normal -->
+      <line x1="110" y1="5" x2="110" y2="195" stroke="#888" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <!-- incident ray (air) -->
+      <line x1="30" y1="20" x2="110" y2="90" stroke="#1e40af" stroke-width="2.5" marker-end="url(#a1)"/>
+      <!-- refracted ray (glass - bends toward normal) -->
+      <line x1="110" y1="90" x2="130" y2="190" stroke="#dc2626" stroke-width="2.5" marker-end="url(#a2)"/>
+      <!-- angle arcs -->
+      <path d="M 92,75 A 22,22 0 0,1 110,68" stroke="#1e40af" stroke-width="1.5" fill="none"/>
+      <path d="M 110,108 A 20,20 0 0,1 122,102" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+      <text x="82" y="74" font-size="11" fill="#1e40af" font-family="system-ui" font-weight="700">i</text>
+      <text x="124" y="110" font-size="11" fill="#dc2626" font-family="system-ui" font-weight="700">r</text>
+      <text x="8" y="88" font-size="10" fill="#555" font-family="system-ui">Boundary</text>
+    </svg>
+    <p class="diagram-note">Slows down → bends TOWARD normal<br>r &lt; i</p>
+  </div>
+
+  <div class="diagram-box">
+    <div class="diagram-title">Glass → Air (bends away from normal)</div>
+    <svg viewBox="0 0 220 200" width="100%" style="max-width:220px;display:block;margin:0 auto">
+      <defs>
+        <marker id="a3" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1e40af"/></marker>
+        <marker id="a4" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#dc2626"/></marker>
+      </defs>
+      <rect x="10" y="10" width="200" height="100" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2" rx="4"/>
+      <text x="110" y="65" font-size="11" fill="#075985" text-anchor="middle" font-family="system-ui" font-weight="600">GLASS</text>
+      <text x="110" y="160" font-size="11" fill="#444" text-anchor="middle" font-family="system-ui">AIR</text>
+      <line x1="110" y1="5" x2="110" y2="195" stroke="#888" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <!-- incident (glass) -->
+      <line x1="90" y1="10" x2="110" y2="110" stroke="#1e40af" stroke-width="2.5" marker-end="url(#a3)"/>
+      <!-- refracted (air) - bends away -->
+      <line x1="110" y1="110" x2="190" y2="195" stroke="#dc2626" stroke-width="2.5" marker-end="url(#a4)"/>
+      <path d="M 98,95 A 18,18 0 0,1 110,88" stroke="#1e40af" stroke-width="1.5" fill="none"/>
+      <path d="M 110,128 A 22,22 0 0,1 124,120" stroke="#dc2626" stroke-width="1.5" fill="none"/>
+      <text x="86" y="95" font-size="11" fill="#1e40af" font-family="system-ui" font-weight="700">i</text>
+      <text x="126" y="130" font-size="11" fill="#dc2626" font-family="system-ui" font-weight="700">r</text>
+      <text x="8" y="108" font-size="10" fill="#555" font-family="system-ui">Boundary</text>
+    </svg>
+    <p class="diagram-note">Speeds up → bends AWAY from normal<br>r &gt; i</p>
+  </div>
+
+  <div class="diagram-box">
+    <div class="diagram-title">Through a glass block (both boundaries)</div>
+    <svg viewBox="0 0 280 200" width="100%" style="max-width:280px;display:block;margin:0 auto">
+      <defs>
+        <marker id="a5" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#1e40af"/></marker>
+        <marker id="a6" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#dc2626"/></marker>
+        <marker id="a7" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#166534"/></marker>
+      </defs>
+      <rect x="80" y="60" width="120" height="80" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2" rx="4"/>
+      <text x="140" y="105" font-size="11" fill="#075985" text-anchor="middle" font-family="system-ui" font-weight="600">GLASS</text>
+      <!-- normals -->
+      <line x1="110" y1="5" x2="110" y2="195" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="170" y1="5" x2="170" y2="195" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
+      <!-- incident -->
+      <line x1="20" y1="10" x2="110" y2="60" stroke="#1e40af" stroke-width="2.5" marker-end="url(#a5)"/>
+      <!-- inside glass (less bent) -->
+      <line x1="110" y1="60" x2="170" y2="140" stroke="#dc2626" stroke-width="2.5"/>
+      <!-- emergent (parallel to incident) -->
+      <line x1="170" y1="140" x2="260" y2="190" stroke="#166534" stroke-width="2.5" marker-end="url(#a7)"/>
+      <!-- label emergent -->
+      <text x="22" y="8" font-size="10" fill="#1e40af" font-family="system-ui">Incident</text>
+      <text x="200" y="188" font-size="10" fill="#166534" font-family="system-ui">Emergent</text>
+      <!-- lateral displacement arrow -->
+      <line x1="20" y1="30" x2="260" y2="30" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,3"/>
+      <line x1="20" y1="30" x2="20" y2="10" stroke="#f59e0b" stroke-width="1"/>
+      <text x="60" y="28" font-size="9" fill="#92400e" font-family="system-ui">Lateral displacement</text>
+    </svg>
+    <p class="diagram-note">Emergent ray is parallel to incident ray<br>but displaced sideways</p>
+  </div>
+
+  <div class="diagram-box">
+    <div class="diagram-title">No refraction (ray along normal)</div>
+    <svg viewBox="0 0 220 200" width="100%" style="max-width:220px;display:block;margin:0 auto">
+      <defs>
+        <marker id="a8" markerWidth="7" markerHeight="7" refX="3" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#166534"/></marker>
+      </defs>
+      <rect x="10" y="80" width="200" height="100" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2" rx="4"/>
+      <text x="110" y="135" font-size="11" fill="#075985" text-anchor="middle" font-family="system-ui" font-weight="600">GLASS</text>
+      <text x="110" y="60" font-size="11" fill="#444" text-anchor="middle" font-family="system-ui">AIR</text>
+      <line x1="110" y1="5" x2="110" y2="195" stroke="#166534" stroke-width="2.5" marker-end="url(#a8)"/>
+      <text x="118" y="40" font-size="11" fill="#166534" font-family="system-ui">i = 0°</text>
+      <text x="118" y="110" font-size="11" fill="#166534" font-family="system-ui">r = 0°</text>
+      <text x="8" y="78" font-size="10" fill="#555" font-family="system-ui">Boundary</text>
+    </svg>
+    <p class="diagram-note">Ray hits at 90° to surface (along normal)<br>No bending — passes straight through</p>
+  </div>
+</div>
+
+<div class="st">Refraction — real-life examples</div>
+<div class="card c-teal">
+  <div class="g2">
+    <div>
+      <div class="row"><span class="tm">Straw in water</span><span class="df">The straw appears bent/broken at the water surface. Light from the straw bends away from the normal as it leaves the water, making the straw appear to be in a different position.</span></div>
+      <div class="row"><span class="tm">Apparent depth</span><span class="df">A swimming pool appears shallower than it really is. Light from the bottom bends away from the normal as it exits the water — your brain traces it back in a straight line to a point that is higher than the real bottom.</span></div>
+    </div>
+    <div>
+      <div class="row"><span class="tm">Rainbow</span><span class="df">White light refracts as it enters and exits raindrops. Different colours refract by different amounts — they separate. Red bends least; violet bends most.</span></div>
+      <div class="row"><span class="tm">Lenses</span><span class="df">Convex lenses converge (focus) parallel light rays to a point. Work by refraction at both curved surfaces. Used in glasses, cameras, microscopes.</span></div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+<!-- 4. WHITE LIGHT & SPECTRUM -->
+<div class="topic-banner tb-purple">4 · White Light &amp; the Visible Spectrum</div>
+
+<div class="card c-purple">
+  <span class="bdg b-purple">Dispersion of white light</span>
+  <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:10px">White light is actually a <strong>mixture of all the colours of the visible spectrum</strong>. When white light passes through a prism (or raindrop), it is <strong>dispersed</strong> — split into its component colours — because each colour has a slightly different wavelength and therefore refracts by a slightly different amount.</p>
+  <div class="rainbow-strip"></div>
+  <div class="g2" style="margin-top:10px">
+    <div>
+      <div class="row"><span class="tm">Order of colours</span><span class="df"><strong>R</strong>oy <strong>G</strong>. <strong>B</strong>iv — Red, Orange, Yellow, Green, Blue, Indigo, Violet</span></div>
+      <div class="row"><span class="tm">Red light</span><span class="df">Longest wavelength (~700 nm). Lowest frequency. Refracts LEAST. At the top of the rainbow.</span></div>
+      <div class="row"><span class="tm">Violet light</span><span class="df">Shortest wavelength (~400 nm). Highest frequency. Refracts MOST. At the bottom of the rainbow.</span></div>
+      <div class="row"><span class="tm">Recombining</span><span class="df">If the spectrum is recombined (using a second prism inverted, or a converging lens), white light is produced again.</span></div>
+    </div>
+    <div>
+      <div class="diagram-box" style="margin-top:0">
+        <div class="diagram-title">Dispersion through a prism</div>
+        <svg viewBox="0 0 260 160" width="100%" style="max-width:260px;display:block;margin:0 auto">
+          <defs>
+            <marker id="pw" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#888"/></marker>
+          </defs>
+          <!-- prism -->
+          <polygon points="120,20 70,140 170,140" fill="#e0f2fe" stroke="#0ea5e9" stroke-width="2"/>
+          <text x="120" y="100" font-size="10" fill="#075985" text-anchor="middle" font-family="system-ui">Prism</text>
+          <!-- white light in -->
+          <line x1="20" y1="80" x2="90" y2="80" stroke="#888" stroke-width="2.5" marker-end="url(#pw)"/>
+          <text x="20" y="73" font-size="10" fill="#444" font-family="system-ui">White</text>
+          <text x="20" y="83" font-size="10" fill="#444" font-family="system-ui">light</text>
+          <!-- spectrum out -->
+          <line x1="145" y1="90" x2="240" y2="55" stroke="#dc2626" stroke-width="2"/>
+          <line x1="145" y1="90" x2="240" y2="70" stroke="#f97316" stroke-width="2"/>
+          <line x1="145" y1="90" x2="240" y2="85" stroke="#eab308" stroke-width="2"/>
+          <line x1="145" y1="90" x2="240" y2="100" stroke="#22c55e" stroke-width="2"/>
+          <line x1="145" y1="90" x2="240" y2="115" stroke="#3b82f6" stroke-width="2"/>
+          <line x1="145" y1="90" x2="240" y2="130" stroke="#6366f1" stroke-width="2"/>
+          <line x1="145" y1="90" x2="240" y2="145" stroke="#8b5cf6" stroke-width="2"/>
+          <text x="243" y="59" font-size="9" fill="#dc2626" font-family="system-ui">Red</text>
+          <text x="243" y="149" font-size="9" fill="#8b5cf6" font-family="system-ui">Violet</text>
+        </svg>
+        <p class="diagram-note">Red refracts least · Violet refracts most<br>ROY G BIV</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="st">Colour of objects — absorption and reflection</div>
+<div class="card c-pink">
+  <span class="bdg b-pink">Why objects appear coloured</span>
+  <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:10px">Objects appear a certain colour because they <strong>reflect</strong> that colour of light and <strong>absorb</strong> all other colours. The colour we see is the colour that is reflected into our eyes.</p>
+  <div class="g2">
+    <div>
+      <div class="row"><span class="tm">Red object</span><span class="df">Reflects red light only. Absorbs all other colours (orange, yellow, green, blue, indigo, violet).</span></div>
+      <div class="row"><span class="tm">White object</span><span class="df">Reflects ALL colours of light equally. Absorbs none. Appears white in white light.</span></div>
+      <div class="row"><span class="tm">Black object</span><span class="df">Absorbs ALL colours of light. Reflects none. Appears black.</span></div>
+      <div class="row"><span class="tm">Green object in red light</span><span class="df">Appears BLACK — no green light to reflect; the red light is all absorbed by the green object.</span></div>
+    </div>
+    <div>
+      <div class="row"><span class="tm">Blue object in white light</span><span class="df">Reflects blue; absorbs red, orange, yellow, green, indigo, violet. Appears blue.</span></div>
+      <div class="row"><span class="tm">Red object in blue light</span><span class="df">Appears BLACK — no red light to reflect; the blue light is absorbed.</span></div>
+      <div class="row"><span class="tm">White object in red light</span><span class="df">Appears RED — reflects all colours it receives; the only colour present is red, so it reflects red.</span></div>
+      <div class="row"><span class="tm">Filters</span><span class="df">A coloured filter only transmits its own colour. A red filter transmits red and absorbs all other colours.</span></div>
+    </div>
+  </div>
+  <div class="warn" style="margin-top:10px">⚠ An object in coloured light can ONLY reflect colours that are present in the light. If none of its colour is present in the light shining on it, it will appear BLACK.</div>
+</div>
+
+<div class="st">Colour addition — light mixing</div>
+<div class="card c-indigo">
+  <div class="g2">
+    <div>
+      <h3 style="margin-bottom:8px">Primary colours of light</h3>
+      <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:8px">Red, Green and Blue (RGB). Mix all three → White light.</p>
+      <div class="row"><span class="tm">Red + Green</span><span class="df">= Yellow</span></div>
+      <div class="row"><span class="tm">Red + Blue</span><span class="df">= Magenta</span></div>
+      <div class="row"><span class="tm">Green + Blue</span><span class="df">= Cyan</span></div>
+      <div class="row"><span class="tm">Red + Green + Blue</span><span class="df">= White</span></div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:8px">Secondary colours of light</h3>
+      <p style="font-size:13px;color:#444;line-height:1.6;margin-bottom:8px">Yellow, Cyan and Magenta — each made by mixing two primary colours.</p>
+      <div class="success">Adding colours of light is different from mixing paints. Mixing all paints gives dark brown/black; mixing all colours of light gives white.</div>
+      <div class="info" style="margin-top:6px">TV screens and phone displays use tiny red, green and blue pixels at different brightnesses to create all the colours you see.</div>
+    </div>
+  </div>
+</div>
+
+<div class="st">Key vocabulary summary</div>
+<div class="card" style="overflow-x:auto">
+<table>
+  <thead><tr><th>Term</th><th>Definition</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Normal</strong></td><td>A line drawn perpendicular (90°) to a surface at the point where light meets it. All angles measured from this line.</td></tr>
+    <tr><td><strong>Angle of incidence</strong></td><td>Angle between the incident ray and the normal.</td></tr>
+    <tr><td><strong>Angle of reflection</strong></td><td>Angle between the reflected ray and the normal. Always equals the angle of incidence.</td></tr>
+    <tr><td><strong>Angle of refraction</strong></td><td>Angle between the refracted ray and the normal inside the new medium.</td></tr>
+    <tr><td><strong>Virtual image</strong></td><td>An image from which light rays only appear to come — no light actually passes through the image position.</td></tr>
+    <tr><td><strong>Dispersion</strong></td><td>Splitting of white light into its component colours by refraction (different colours bend by different amounts).</td></tr>
+    <tr><td><strong>Lateral displacement</strong></td><td>The sideways shift of a ray as it passes through a parallel-sided block. Emergent ray is parallel to but displaced from the incident ray.</td></tr>
+    <tr><td><strong>Luminous</strong></td><td>An object that produces its own light (e.g. Sun, bulb, fire).</td></tr>
+    <tr><td><strong>Specular reflection</strong></td><td>Regular reflection from a smooth surface — clear image formed.</td></tr>
+    <tr><td><strong>Diffuse reflection</strong></td><td>Scattered reflection from a rough surface — no clear image.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div style="text-align:center;margin-top:24px"><button class="ab" onclick="sp('sa')">Go to Self-Assessment →</button></div>
+</div>
+
+<!-- ══════════════════════════ SELF ASSESSMENT ══════════════════ -->
+<div class="pg" id="pg-sa">
+<h1>Self-Assessment</h1>
+<p class="subtitle">Rate your confidence: Green = confident · Amber = unsure · Red = not yet learned</p>
+<div id="sa-wrap"></div>
+<div style="text-align:center;margin-top:18px"><button class="ab" onclick="sp('dq')">Diagnostic Questions →</button></div>
+</div>
+
+<!-- ══════════════════════════ DIAGNOSTIC ════════════════════════ -->
+<div class="pg" id="pg-dq">
+<h1>Diagnostic Questions</h1>
+<p class="subtitle">16 questions covering all topics. Select your answer for instant feedback.</p>
+<div id="dq-wrap"></div>
+<div style="text-align:center;margin-top:18px"><button class="ab" onclick="sp('fu')">Follow-Up Questions →</button></div>
+</div>
+
+<!-- ══════════════════════════ FOLLOW-UP ═════════════════════════ -->
+<div class="pg" id="pg-fu">
+<h1>Follow-Up Questions</h1>
+<p class="subtitle">Longer questions — write your answer on paper, then reveal the model answer and self-rate.</p>
+<div id="fu-wrap"></div>
+<div style="text-align:center;margin-top:18px"><button class="ab" onclick="bs();sp('sm')">View My Summary →</button></div>
+</div>
+
+<!-- ══════════════════════════ SUMMARY ═══════════════════════════ -->
+<div class="pg" id="pg-sm">
+<h1>My Summary</h1>
+<p class="subtitle">Your personalised performance breakdown</p>
+<div id="sm-wrap"></div>
+</div>
+
+</div>
+
+<script>
+var SA=[
+  {id:'s1',tp:'Light basics',tx:'I can explain that light travels in straight lines and state that this explains shadows and why we cannot see around corners.'},
+  {id:'s2',tp:'Light basics',tx:'I can distinguish between luminous and non-luminous objects, and between opaque, transparent and translucent materials.'},
+  {id:'s3',tp:'Law of Reflection',tx:'I can state the law of reflection: angle of incidence = angle of reflection.'},
+  {id:'s4',tp:'Law of Reflection',tx:'I can explain what the normal is and why all angles are measured from the normal, not from the surface.'},
+  {id:'s5',tp:'Reflection diagrams',tx:'I can draw a correctly labelled reflection diagram including: mirror, normal, incident ray, reflected ray, and label angles i and r correctly.'},
+  {id:'s6',tp:'Reflection',tx:'I can explain the difference between regular (specular) and diffuse reflection, and give an example of each.'},
+  {id:'s7',tp:'Mirror images',tx:'I can describe the properties of a mirror image: virtual, same size, same distance behind mirror, upright, laterally inverted.'},
+  {id:'s8',tp:'Refraction',tx:'I can define refraction as the change in direction of light when it crosses a boundary between two materials due to a change in speed.'},
+  {id:'s9',tp:'Refraction',tx:'I can state what happens when light goes from air to glass (bends toward normal) and from glass to air (bends away from normal).'},
+  {id:'s10',tp:'Refraction diagrams',tx:'I can draw a correctly labelled refraction diagram for light entering and leaving a glass block, including the emergent ray being parallel to the incident ray.'},
+  {id:'s11',tp:'Refraction',tx:'I can explain real-life examples of refraction: straw in water, apparent depth of swimming pool, rainbows.'},
+  {id:'s12',tp:'White light',tx:'I can state that white light is a mixture of all colours of the visible spectrum and recite the colours in order (ROY G BIV).'},
+  {id:'s13',tp:'White light',tx:'I can explain dispersion: white light splits into colours through a prism because each colour refracts by a different amount. Red bends least; violet bends most.'},
+  {id:'s14',tp:'Colour',tx:'I can explain why objects appear coloured in white light — they reflect their colour and absorb all others.'},
+  {id:'s15',tp:'Colour',tx:'I can predict the colour of an object in coloured light (e.g. a red object in blue light appears black).'},
+  {id:'s16',tp:'Colour',tx:'I can state the primary colours of light (red, green, blue) and the colours produced by mixing two primary colours.'}
+];
+
+var DQ=[
+  {id:'d1',tp:'Light basics',
+   q:'Why can you not see around corners in a dark room when a torch is pointing away from you?',
+   os:['Light is absorbed by the air','Light travels in straight lines and does not bend around corners by itself','Light is too slow to reach corners','Light only travels short distances'],
+   c:1,ex:'Light travels in straight lines. Without a surface to reflect it and redirect it, it cannot turn corners. This also explains why you get sharp shadows — light travels straight and is blocked by opaque objects.'},
+  {id:'d2',tp:'Law of Reflection',
+   q:'A light ray hits a flat mirror. The angle between the ray and the mirror surface is 30°. What is the angle of reflection?',
+   os:['30°','60°','90°','15°'],
+   c:1,ex:'The angle of incidence is measured from the NORMAL (perpendicular to the mirror). If the ray makes 30° with the surface, it makes 90° − 30° = 60° with the normal. So the angle of incidence = 60°. By the law of reflection, angle of reflection = 60°.'},
+  {id:'d3',tp:'Law of Reflection',
+   q:'In a reflection diagram, from which line must you always measure the angle of incidence and angle of reflection?',
+   os:['The mirror surface','The incident ray','The normal (perpendicular to the surface at the point of incidence)','The reflected ray'],
+   c:2,ex:'All angles in optics (reflection and refraction) are measured from the NORMAL — a line drawn perpendicular (at 90°) to the surface. Measuring from the surface itself gives the complementary angle and is incorrect.'},
+  {id:'d4',tp:'Reflection',
+   q:'Why do you see a clear image of yourself in a calm lake but not in a rough, choppy lake?',
+   os:['A calm lake is colder and absorbs more light','A calm lake has a smooth, flat surface producing regular (specular) reflection; a rough surface produces diffuse reflection in many directions','A rough lake reflects more total light','You are further from the rough lake'],
+   c:1,ex:'Regular (specular) reflection from a smooth, flat surface reflects all rays at the same angle — you see a clear image. Diffuse reflection from a rough surface scatters rays in many different directions — no clear image forms.'},
+  {id:'d5',tp:'Mirror image',
+   q:'An object is placed 15 cm in front of a plane mirror. Where does the image appear and what type of image is it?',
+   os:['15 cm in front of the mirror; real image','15 cm behind the mirror; virtual image','30 cm behind the mirror; virtual image','15 cm behind the mirror; real image'],
+   c:1,ex:'The image in a plane mirror is always virtual (no light actually passes through that point) and appears the same distance BEHIND the mirror as the object is IN FRONT. So 15 cm in front → image 15 cm behind.'},
+  {id:'d6',tp:'Refraction',
+   q:'What is refraction?',
+   os:['The bouncing of light off a surface','The change in direction of light as it passes from one medium to another due to a change in speed','The splitting of white light into colours','The absorption of light by a material'],
+   c:1,ex:'Refraction is the bending of light when it crosses the boundary between two materials with different optical densities. It is caused by the change in the speed of light — light slows down in denser media (like glass) and speeds up when returning to a less dense medium (air).'},
+  {id:'d7',tp:'Refraction',
+   q:'A ray of light travels from air into a glass block at an angle. What happens to the direction of the ray?',
+   os:['It bends away from the normal because it speeds up','It bends toward the normal because it slows down','It continues in a straight line without bending','It is completely reflected back into the air'],
+   c:1,ex:'Glass is optically denser than air. When light enters glass it SLOWS DOWN. If it enters at an angle, slowing down causes it to bend TOWARD the normal. The angle of refraction is smaller than the angle of incidence.'},
+  {id:'d8',tp:'Refraction diagrams',
+   q:'A ray of light passes through a parallel-sided glass block and exits the other side. How does the emergent (exit) ray compare to the original incident ray?',
+   os:['It is bent toward the normal','It is parallel to the incident ray but shifted sideways (laterally displaced)','It is at 90° to the incident ray','It is reflected back through the block'],
+   c:1,ex:'When light passes through a parallel-sided block, it bends toward the normal at entry and away from the normal at exit by the same amount. The two bendings cancel — the emergent ray is parallel to the incident ray. However, it is displaced sideways (lateral displacement).'},
+  {id:'d9',tp:'Refraction',
+   q:'A pencil in a glass of water appears to be bent at the water surface. What causes this?',
+   os:['The water bends the pencil physically','Light from the pencil below the water refracts at the water-air boundary, making the pencil appear to be in a different position','The water absorbs some light making the image distorted','The pencil casts a shadow that looks bent'],
+   c:1,ex:'Light from the part of the pencil that is under water travels from water (denser) to air (less dense). It bends AWAY from the normal. Your brain traces the light back in a straight line, putting the pencil in a different apparent position — so the pencil looks bent at the surface.'},
+  {id:'d10',tp:'White light',
+   q:'What is white light?',
+   os:['A single pure colour of light','A mixture of all the colours of the visible spectrum','Light that has had all colours removed','Light that only reflects off white surfaces'],
+   c:1,ex:'White light is a mixture of all the colours of the visible spectrum: red, orange, yellow, green, blue, indigo and violet. This can be demonstrated by passing white light through a prism — it disperses into all these colours.'},
+  {id:'d11',tp:'White light',
+   q:'White light passes through a triangular glass prism. Which colour of light is refracted (bent) the most?',
+   os:['Red — it has the longest wavelength','Yellow — it is in the middle of the spectrum','Violet — it has the shortest wavelength and highest frequency','Green — it is the brightest colour'],
+   c:2,ex:'Different colours have different wavelengths. Violet has the shortest wavelength and is slowed down slightly more than other colours when entering the glass — it refracts the most. Red has the longest wavelength and is refracted the least. This difference in refraction causes dispersion.'},
+  {id:'d12',tp:'Colour',
+   q:'A blue jumper is viewed in white light. What happens to the different colours of light that hit the jumper?',
+   os:['All colours are reflected equally','Blue light is reflected; all other colours are absorbed by the jumper','Blue light is absorbed; all other colours are reflected','All colours are absorbed — it appears black'],
+   c:1,ex:'Objects appear the colour of the light they REFLECT. A blue jumper reflects blue light into your eyes and absorbs all other colours (red, orange, yellow, green, indigo, violet). This is why it appears blue.'},
+  {id:'d13',tp:'Colour in coloured light',
+   q:'A red apple is placed under a green light. What colour does the apple appear?',
+   os:['Red — it always appears red','Green — the light is green','Yellow — mixing red and green','Black — no red light is present to be reflected'],
+   c:3,ex:'A red apple can only reflect red light. Under green light, there is no red light present for the apple to reflect. The apple absorbs the green light. With no light being reflected, the apple appears black.'},
+  {id:'d14',tp:'Colour mixing',
+   q:'Which colours are the primary colours of LIGHT (not paint)?',
+   os:['Red, yellow and blue','Red, green and blue','Red, orange and violet','Cyan, magenta and yellow'],
+   c:1,ex:'The primary colours of LIGHT are Red, Green and Blue (RGB). These are different from the primary colours of paint (red, yellow, blue). When all three primary colours of light are mixed together, white light is produced.'},
+  {id:'d15',tp:'Colour mixing',
+   q:'What colour is produced when red light and green light are mixed?',
+   os:['Orange','Brown','Yellow','White'],
+   c:2,ex:'Red light + Green light = Yellow. This is colour addition (mixing light). Red + Blue = Magenta. Green + Blue = Cyan. Red + Green + Blue = White. This is different from mixing paints where red + green gives dark brown/black.'},
+  {id:'d16',tp:'Colour filters',
+   q:'A white piece of paper is viewed through a red filter. What colour does the paper appear?',
+   os:['White — filters don\'t change white','Black — all light is blocked','Red — only red light passes through the filter','Pink — the filter tints the colour'],
+   c:2,ex:'A red filter only allows red light to pass through — it absorbs all other colours. The white paper reflects all colours, but only the red light can get through the filter. So the paper appears red when viewed through a red filter.'}
+];
+
+var FU=[
+  {id:'f1',tp:'Law of Reflection',
+   q:'Draw and label a diagram showing the law of reflection at a plane mirror. Label: the mirror, the normal, the incident ray, the reflected ray, the angle of incidence (i) and the angle of reflection (r). State the law of reflection. (4 marks)',
+   model:'Diagram should show: horizontal mirror surface; dashed normal at 90° to the mirror at the point where the ray hits; incident ray arriving at an angle with arrow showing direction; reflected ray leaving at the same angle on the other side with arrow; angle i between incident ray and normal clearly marked; angle r between reflected ray and normal clearly marked. Law of reflection stated: the angle of incidence equals the angle of reflection (i = r). Both angles must be measured from the normal, not the surface. Award marks for: correct diagram (2), correctly labelled angles from the normal (1), law stated correctly (1).'},
+  {id:'f2',tp:'Refraction',
+   q:'Explain what happens to a ray of light as it travels from air into a glass block and out the other side. In your answer describe: (a) what happens at the air-glass boundary, (b) what happens inside the glass, (c) what happens at the glass-air boundary, (d) how the final ray compares to the original. (5 marks)',
+   model:'(a) Air → glass boundary: light enters a denser medium so it slows down. If it hits at an angle, it bends TOWARD the normal (angle of refraction < angle of incidence). (b) Inside glass: light continues in a straight line at this new angle — no further bending until it reaches the next boundary. (c) Glass → air boundary: light enters a less dense medium so it speeds up. It bends AWAY from the normal (angle of refraction > angle of incidence). (d) The emergent ray is parallel to the original incident ray but is displaced sideways — this sideways shift is called lateral displacement. The two refractions cancel each other out in direction but not in position.'},
+  {id:'f3',tp:'White light and colour',
+   q:'A stage has red, green and blue spotlights shining on different parts. Explain: (a) what colour you see where all three overlap, (b) what colour a yellow banana appears under blue light only, and (c) what colour a white sheet of paper appears under red light. (4 marks)',
+   model:'(a) Where red + green + blue light all overlap: white light is produced. The three primary colours of light combine to give white. (b) A yellow banana in blue light: The banana is yellow because in white light it reflects red and green (which combine to give yellow) and absorbs blue. Under blue light only, there is no red or green for the banana to reflect, and it absorbs the blue light — so the banana appears BLACK. (c) A white sheet of paper under red light: the paper reflects all colours it receives. The only colour present is red. So the paper reflects red and appears RED.'},
+  {id:'f4',tp:'Refraction and dispersion',
+   q:'Explain why white light splits into different colours when it passes through a glass prism. Why does red light appear at the top and violet at the bottom? (4 marks)',
+   model:'White light is a mixture of all the colours of the visible spectrum. When white light enters the prism, each colour of light has a slightly different wavelength and speed in the glass. Violet light has the shortest wavelength and slows down slightly more than red light — it is refracted (bent) the most. Red light has the longest wavelength and slows down the least — it is refracted the least. Because each colour refracts by a different amount, the colours separate — this is called dispersion. The order from least to most refracted is: red, orange, yellow, green, blue, indigo, violet (ROY G BIV). Red appears at the top (least bent); violet at the bottom (most bent).'},
+  {id:'f5',tp:'Reflection and diagrams',
+   q:'A student wants to find the position of an image in a plane mirror experimentally. Describe the method they would use with pins (the pin-tracing method). (4 marks)',
+   model:'1. Place the plane mirror upright on a sheet of paper and draw a line along the back of the mirror. 2. Place two pins (O₁ and O₂) in front of the mirror to represent the object. 3. Look into the mirror from the other side. Place two more pins (I₁ and I₂) so that they appear to be in line with the images of O₁ and O₂. 4. Remove the mirror. Draw a line through I₁ and I₂ — this is the line of sight from behind the mirror. Extend it to cross the mirror line. 5. Repeat from a different angle to get a second line of sight. Where the two lines cross behind the mirror line is the image position. The image is the same distance behind the mirror as the object is in front, and is virtual.'}
+];
+
+var ss={},ds={},fu_self={};
+
+function sp(id){
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('.nb').forEach(function(b){b.classList.remove('on')});
+  document.getElementById('pg-'+id).classList.add('on');
+  var m={ko:0,sa:1,dq:2,fu:3,sm:4};
+  document.querySelectorAll('.nb')[m[id]].classList.add('on');
+  window.scrollTo(0,0);
+}
+
+function bSA(){
+  var c=document.getElementById('sa-wrap');c.innerHTML='';
+  SA.forEach(function(s){
+    var d=document.createElement('div');d.className='si';
+    d.innerHTML='<p class="ss"><strong style="font-size:12px;color:#888;font-weight:600;text-transform:uppercase;letter-spacing:.05em">'+s.tp+'</strong><br><br>'+s.tx+'</p>'
+      +'<div class="sbs">'
+      +'<button class="sb" onclick="setSA(\''+s.id+'\',\'g\',this)">✓ Confident</button>'
+      +'<button class="sb" onclick="setSA(\''+s.id+'\',\'a\',this)">~ Unsure</button>'
+      +'<button class="sb" onclick="setSA(\''+s.id+'\',\'r\',this)">✗ Not yet</button>'
+      +'</div>';
+    c.appendChild(d);
+  });
+}
+
+function setSA(id,v,btn){
+  ss[id]=v;
+  btn.parentElement.querySelectorAll('button').forEach(function(b){b.className='sb'});
+  btn.classList.add(v==='g'?'sg':v==='a'?'sam':'sr');
+}
+
+function bDQ(){
+  var c=document.getElementById('dq-wrap');c.innerHTML='';
+  DQ.forEach(function(q,i){
+    var d=document.createElement('div');d.className='qb';
+    var h='<p style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">'+q.tp+' · Q'+(i+1)+' of '+DQ.length+'</p>'
+      +'<p class="qt">'+q.q+'</p>';
+    q.os.forEach(function(o,j){
+      h+='<button class="ob" onclick="chkD(\''+q.id+'\','+j+','+q.c+',this,\'fb-'+q.id+'\')">'+String.fromCharCode(65+j)+') '+o+'</button>';
+    });
+    h+='<div class="fb" id="fb-'+q.id+'"></div>';
+    d.innerHTML=h;c.appendChild(d);
+  });
+}
+
+function chkD(qid,ch,co,btn,fbid){
+  btn.parentElement.querySelectorAll('.ob').forEach(function(b){b.disabled=true});
+  var fb=document.getElementById(fbid);fb.classList.add('on');
+  var q=DQ.filter(function(x){return x.id===qid})[0];
+  if(ch===co){
+    btn.classList.add('oc');fb.className='fb on fbc';
+    fb.innerHTML='<strong>Correct!</strong> '+q.ex;ds[qid]=true;
+  } else {
+    btn.classList.add('ow');
+    btn.parentElement.querySelectorAll('.ob')[co].classList.add('orc');
+    fb.className='fb on fbw';
+    fb.innerHTML='<strong>Incorrect.</strong> '+q.ex;ds[qid]=false;
+  }
+}
+
+function bFU(){
+  var c=document.getElementById('fu-wrap');c.innerHTML='';
+  FU.forEach(function(q,i){
+    var d=document.createElement('div');d.className='card';d.style.marginBottom='16px';
+    d.innerHTML='<p style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">'+q.tp+' · Q'+(i+1)+' of '+FU.length+'</p>'
+      +'<p style="font-size:14px;font-weight:600;margin-bottom:12px;line-height:1.55;color:#1a1a1a">'+q.q+'</p>'
+      +'<p style="font-size:13px;color:#666;margin-bottom:8px">Write your answer on paper first, then reveal the model answer.</p>'
+      +'<div id="ma-'+q.id+'" style="display:none;background:#f9f9f9;border-left:4px solid #22c55e;border-radius:0 8px 8px 0;padding:10px 14px;font-size:13px;color:#444;line-height:1.7;margin-bottom:10px"><strong>Model answer:</strong><br>'+q.model+'</div>'
+      +'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">'
+      +'<button class="ckb" onclick="toggleMA(\'ma-'+q.id+'\',this)">Show model answer</button>'
+      +'<span style="font-size:13px;color:#666;margin-left:4px">Self-rate:</span>'
+      +'<button class="sb" onclick="setFU(\''+q.id+'\',\'g\',this)">✓ Got it</button>'
+      +'<button class="sb" onclick="setFU(\''+q.id+'\',\'a\',this)">~ Partly</button>'
+      +'<button class="sb" onclick="setFU(\''+q.id+'\',\'r\',this)">✗ Missed it</button>'
+      +'</div>';
+    c.appendChild(d);
+  });
+}
+
+function toggleMA(id,btn){
+  var el=document.getElementById(id);
+  if(el.style.display==='none'){el.style.display='block';btn.textContent='Hide model answer';}
+  else{el.style.display='none';btn.textContent='Show model answer';}
+}
+
+function setFU(id,v,btn){
+  fu_self[id]=v;
+  btn.parentElement.querySelectorAll('.sb').forEach(function(b){b.className='sb'});
+  btn.classList.add(v==='g'?'sg':v==='a'?'sam':'sr');
+}
+
+function bs(){
+  var dT=DQ.length,dR=Object.values(ds).filter(function(v){return v}).length;
+  var fuG=Object.values(fu_self).filter(function(v){return v==='g'}).length;
+  var fuA=Object.values(fu_self).filter(function(v){return v==='a'}).length;
+  var fuR=Object.values(fu_self).filter(function(v){return v==='r'}).length;
+  var saG=Object.values(ss).filter(function(v){return v==='g'}).length;
+  var saA=Object.values(ss).filter(function(v){return v==='a'}).length;
+  var saR=Object.values(ss).filter(function(v){return v==='r'}).length;
+  var pct=Math.round(dR/dT*100);
+  var col=pct>=70?'#166534':pct>=50?'#92400e':'#991b1b';
+  var bg=pct>=70?'#dcfce7':pct>=50?'#fef3c7':'#fee2e2';
+  var lbl=pct>=70?'Great work! Keep it up.':pct>=50?'Good progress — keep revising.':'Needs revision — go back to the KO.';
+
+  var topics=[
+    {lb:'Light basics (luminous, opaque, transparent)',si:['s1','s2'],di:['d1'],fu:[]},
+    {lb:'Law of Reflection',si:['s3','s4'],di:['d2','d3'],fu:['f1']},
+    {lb:'Reflection diagrams',si:['s5'],di:['d2','d3'],fu:['f1']},
+    {lb:'Regular and diffuse reflection',si:['s6'],di:['d4'],fu:[]},
+    {lb:'Mirror images — properties',si:['s7'],di:['d5'],fu:['f5']},
+    {lb:'Refraction — definition and rules',si:['s8','s9'],di:['d6','d7'],fu:['f2']},
+    {lb:'Refraction diagrams (through a block)',si:['s10'],di:['d8'],fu:['f2']},
+    {lb:'Real-life refraction examples',si:['s11'],di:['d9'],fu:[]},
+    {lb:'White light and dispersion',si:['s12','s13'],di:['d10','d11'],fu:['f4']},
+    {lb:'Colour — reflection and absorption',si:['s14','s15'],di:['d12','d13'],fu:['f3']},
+    {lb:'Colour mixing and filters',si:['s16'],di:['d14','d15','d16'],fu:['f3']}
+  ];
+
+  var rows='';var strong=[];var weak=[];var developing=[];
+  topics.forEach(function(t){
+    var seen={};var qr=[];
+    t.di.forEach(function(id){if(!seen[id]&&ds[id]!==undefined){seen[id]=1;qr.push(ds[id])}});
+    var sv=t.si.map(function(id){return ss[id]}).filter(Boolean);
+    var qp=qr.length?qr.filter(function(v){return v}).length/qr.length:null;
+    var st,pc;
+    if(qp!==null){
+      if(qp>=0.75){st='Strong';pc='pig';}
+      else if(qp>=0.5){st='Developing';pc='pia';}
+      else{st='Needs work';pc='pir';}
+    } else if(sv.length&&sv.every(function(v){return v==='g'})){st='Self-confident';pc='pig';}
+    else if(sv.some(function(v){return v==='r'})){st='Needs work';pc='pir';}
+    else if(sv.some(function(v){return v==='a'})){st='Developing';pc='pia';}
+    else{st='Not assessed';pc='pia';}
+    rows+='<div class="tr2"><span style="font-size:14px">'+t.lb+'</span><span class="pill '+pc+'">'+st+'</span></div>';
+    if(st==='Strong'||st==='Self-confident')strong.push(t.lb);
+    else if(st==='Developing')developing.push(t.lb);
+    if(st==='Needs work')weak.push(t.lb);
+  });
+
+  var html='<div class="g3" style="margin-bottom:16px">'
+    +'<div class="stat-card"><div class="stat-label">MCQ correct</div><div class="stat-val">'+dR+'/'+dT+'</div></div>'
+    +'<div class="stat-card"><div class="stat-label">MCQ score</div><div class="stat-val" style="color:'+col+'">'+pct+'%</div></div>'
+    +'<div class="stat-card" style="background:'+bg+'"><div class="stat-label">Result</div><div style="font-size:13px;font-weight:700;color:'+col+';margin-top:6px;line-height:1.4">'+lbl+'</div></div>'
+    +'</div>'
+    +'<div class="g3" style="margin-bottom:16px">'
+    +'<div class="stat-card"><div class="stat-label">Self-assessment</div>'
+    +'<div style="margin-top:6px"><span class="pill pig" style="display:block;margin-bottom:4px;text-align:center">'+saG+' confident</span>'
+    +'<span class="pill pia" style="display:block;margin-bottom:4px;text-align:center">'+saA+' unsure</span>'
+    +'<span class="pill pir" style="display:block;text-align:center">'+saR+' not yet</span></div></div>'
+    +'<div class="stat-card"><div class="stat-label">Follow-up Qs</div>'
+    +'<div style="margin-top:6px"><span class="pill pig" style="display:block;margin-bottom:4px;text-align:center">'+fuG+' got it</span>'
+    +'<span class="pill pia" style="display:block;margin-bottom:4px;text-align:center">'+fuA+' partly</span>'
+    +'<span class="pill pir" style="display:block;text-align:center">'+fuR+' missed</span></div></div>'
+    +'<div class="stat-card"><div class="stat-label">Skills rated</div><div class="stat-val">'+Object.keys(ss).length+'/'+SA.length+'</div></div>'
+    +'</div>'
+    +'<div class="st" style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-bottom:9px">Topic-by-topic breakdown</div>'
+    +'<div class="card">'+rows+'</div>';
+
+  if(strong.length){html+='<div class="card c-green" style="margin-top:12px"><h3 style="color:#166534;margin-bottom:6px">✓ Topics you know well</h3><p style="font-size:13px;color:#444">'+strong.join(' &nbsp;·&nbsp; ')+'</p></div>';}
+  if(developing.length){html+='<div class="card c-amber" style="margin-top:12px"><h3 style="color:#92400e;margin-bottom:6px">~ Topics to consolidate</h3><p style="font-size:13px;color:#444">'+developing.join(' &nbsp;·&nbsp; ')+'</p></div>';}
+  if(weak.length){html+='<div class="card c-red" style="margin-top:12px"><h3 style="color:#991b1b;margin-bottom:6px">✗ Priority topics to revise</h3><p style="font-size:13px;color:#444">'+weak.join(' &nbsp;·&nbsp; ')+'</p><p style="font-size:13px;color:#666;margin-top:8px">Return to the Knowledge Organiser, re-read those sections, then retry the questions.</p></div>';}
+  if(!strong.length&&!weak.length&&!developing.length&&dR===0){html+='<div class="card c-amber" style="margin-top:12px"><p style="font-size:13px;color:#444">Complete the self-assessment and questions first to see your personalised breakdown.</p></div>';}
+
+  html+='<div class="card c-blue" style="margin-top:14px">'
+    +'<h3 style="color:#1e40af;margin-bottom:8px">📋 Key exam reminders for Light</h3>'
+    +'<div style="font-size:13px;color:#444;line-height:1.8">'
+    +'<p>• Angles are ALWAYS measured from the NORMAL — never from the mirror/surface itself.</p>'
+    +'<p>• Law of reflection: angle of incidence = angle of reflection (i = r).</p>'
+    +'<p>• Air → glass: light slows down → bends TOWARD normal. Glass → air: speeds up → bends AWAY.</p>'
+    +'<p>• Emergent ray through a parallel block = parallel to incident ray but shifted sideways.</p>'
+    +'<p>• White light = mixture of all colours. ROY G BIV. Red bends LEAST, violet bends MOST.</p>'
+    +'<p>• Objects appear the colour they REFLECT. An object in light of a different colour may appear BLACK.</p>'
+    +'<p>• Primary colours of LIGHT = Red, Green, Blue. R+G+B = White.</p>'
+    +'<p>• Mirror image: virtual, same size, same distance behind mirror, upright, laterally inverted.</p>'
+    +'</div></div>';
+
+  html+='<div style="text-align:center;margin-top:24px"><button class="ab" onclick="sp(\'ko\')">Review Knowledge Organiser →</button></div>';
+  document.getElementById('sm-wrap').innerHTML=html;
+}
+
+bSA();bDQ();bFU();
+</script>
+</body>
+</html>
